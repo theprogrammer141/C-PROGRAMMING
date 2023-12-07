@@ -1,3 +1,3 @@
 #C-PROGRAMMING
 <br>
-#All that has been done so far
+#This is a read-only repository.
