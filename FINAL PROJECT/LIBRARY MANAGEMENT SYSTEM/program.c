@@ -498,7 +498,21 @@ void display_books()
     }
 
     //READING THE RECORDS AND THEN PRINTING TO THE CONSOLE
-    printf("\n------------------------DISPLAYING BOOKS--------------------------\n");
+    printf("\n------------------------DISPLAYING BOOKS--------------------------\n\n");
+
+    //CHECK IF THE FILE IS EMPTY
+    if(fp)
+    {
+        fseek(fp,0,SEEK_END);
+        if(ftell(fp)==0)
+        {
+            printf("LIBRARY IS EMPTY!NO RECORDS FOUND!\n\n");
+        }
+    }
+
+    //DISPLAY RECORDS IF THE DATA IS PRESENT
+    else
+    {
     while(fscanf(fp,"%d\n%s\n%s\n%d\n%s\n%d\n",&b.serial_number,b.ISBN,b.name,&b.edition,b.author,&b.is_reserved)!=EOF)
     {
         printf("SERIAL NUMBER:%d\n",b.serial_number);
@@ -507,6 +521,7 @@ void display_books()
         printf("EDITION:%d\n",b.edition);
         printf("AUTHOR:%s\n",b.author);
         printf("RESERVED STATUS:%d\n\n\n",b.is_reserved);
+    }
     }
     printf("---------------------------------------------------------------------\n");
     
