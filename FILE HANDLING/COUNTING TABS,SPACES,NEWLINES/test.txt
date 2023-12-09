@@ -1,0 +1,3 @@
+this program will
+calculate total number of
+tabs spaces and newline characters
