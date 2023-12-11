@@ -523,7 +523,7 @@ void display_books()
         printf("RESERVED STATUS:%d\n\n\n",b.is_reserved);
     }
     }
-    printf("---------------------------------------------------------------------\n");
+    printf("\n---------------------------------------------------------------------\n");
     //CLOSING THE FILE
     fclose(fp);
 }
