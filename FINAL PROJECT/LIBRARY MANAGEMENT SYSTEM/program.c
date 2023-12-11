@@ -500,7 +500,7 @@ void display_books()
     //READING THE RECORDS AND THEN PRINTING TO THE CONSOLE
     printf("\n------------------------DISPLAYING BOOKS--------------------------\n");
 
-     //CHECK IF THE FILE IS EMPTY
+    //CHECK IF THE FILE IS EMPTY
         fseek(fp,0,SEEK_END);
         if(ftell(fp)==0)
         {
