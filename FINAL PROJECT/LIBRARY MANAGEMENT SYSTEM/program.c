@@ -500,26 +500,14 @@ void display_books()
     //READING THE RECORDS AND THEN PRINTING TO THE CONSOLE
     printf("\n------------------------DISPLAYING BOOKS--------------------------\n");
 
-<<<<<<< HEAD
     //CHECK IF THE FILE IS EMPTY
-=======
-     //CHECK IF THE FILE IS EMPTY
-    if(fp)
-    {
->>>>>>> 92a3cddcb275b0c096e212e3d381bea0c1c187c3
         fseek(fp,0,SEEK_END);
         if(ftell(fp)==0)
         {
         printf("LIBRARY IS EMPTY!NO RECORDS FOUND!\n\n");
         }
-<<<<<<< HEAD
-
-    //DISPLAY RECORDS IF THE DATA IS PRESENT
-=======
-    }
     
     //DISPLAY RECORDS IF DATA IS PRESENT
->>>>>>> 92a3cddcb275b0c096e212e3d381bea0c1c187c3
     else
     {
     rewind(fp);
@@ -533,12 +521,7 @@ void display_books()
         printf("RESERVED STATUS:%d\n\n\n",b.is_reserved);
     }
     }
-<<<<<<< HEAD
-    printf("---------------------------------------------------------------------\n");
-
-=======
     printf("\n---------------------------------------------------------------------\n");
->>>>>>> 92a3cddcb275b0c096e212e3d381bea0c1c187c3
     //CLOSING THE FILE
     fclose(fp);
 }
