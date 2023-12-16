@@ -47,18 +47,21 @@ int main()
     //DO WHILE LOOP FOR ITERATING PROGRAM
     do
     {
-    printf("-------------------WELCOME TO LIBRARY--------------------\n");
-    printf("PLEASE CHOOSE FROM THE MENU BELOW:-\n");
-    printf("1.ADD BOOK\n");
-    printf("2.DELETE BOOK\n");
-    printf("3.SEARCH BOOK BY ISBN\n");
-    printf("4.SEARCH BOOK BY NAME\n");
-    printf("5.SEARCH BOOK BY AUTHOR\n");
-    printf("6.MODIFY BOOK\n");
-    printf("7.DISPLAY BOOKS\n");
-    printf("8.ISSUE OR RETURN BOOK\n");
-    printf("9.EXIT LIBRARY\n");
-    printf("----------------------------------------------------------\n");
+    printf("\033[1;33m");
+    printf("\n");
+    printf("                        |-------------------WELCOME TO LIBRARY--------------------|\n\n");
+    printf("                        |    PLEASE CHOOSE FROM THE MENU BELOW:-                  |\n\n");               
+    printf("                        |    1.ADD BOOK                                           |\n\n");                                            
+    printf("                        |    2.DELETE BOOK                                        |\n\n");
+    printf("                        |    3.SEARCH BOOK BY ISBN                                |\n\n");
+    printf("                        |    4.SEARCH BOOK BY NAME                                |\n\n");
+    printf("                        |    5.SEARCH BOOK BY AUTHOR                              |\n\n");
+    printf("                        |    6.MODIFY BOOK                                        |\n\n");
+    printf("                        |    7.DISPLAY BOOKS                                      |\n\n");
+    printf("                        |    8.ISSUE OR RETURN BOOK                               |\n\n");
+    printf("                        |    9.EXIT LIBRARY                                       |\n\n");
+    printf("                        |---------------------------------------------------------|\n\n");
+    printf("\033[0m");
 
     //DO WHILE LOOP FOR INPUT VALIDATION
     do
