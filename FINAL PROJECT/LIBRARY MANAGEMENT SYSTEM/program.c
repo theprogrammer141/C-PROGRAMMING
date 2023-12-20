@@ -533,17 +533,16 @@ void display_books()
 //ISSUE BOOK FUNCTION DEFINITION
 void issue_or_return_book()
 {
-    printf("\n--------------------ISSUING BOOK-------------------------\n");
-    int currentserial;
+    printf("\n--------------------ISSUING OR RETURNING BOOK-------------------------\n");
+
+    int currentSerial;
     int choice;
 
-    //INPUTTING THE SERIAL NUMBER TO ISSUE OR RETURN THAT BOOK
     printf("ENTER SERIAL NUMBER TO ISSUE OR RETURN BOOK:");
-    scanf("%d",&currentserial);
+    scanf("%d", &currentSerial);
     getchar();
 
-    //OPENING THE FILE TO READ RECORDS
-    FILE *fp,*tempfp;
+    FILE *fp, *tempfp;
     fp=fopen("librarydatabase.txt","r");
     if(fp==NULL)
     {
@@ -551,84 +550,9 @@ void issue_or_return_book()
         exit(1);
     }
 
-    int flag=0;
-    int index=0;
+    struct book tempBook;
+    int found=0;
 
-    //DECLARING AN ARRAY OF BOOKS TO READ RECORDS FROM THE ARRAY
-    //THEN MATCHING THE SPECIFIC SERIAL NUMBER
-    struct book books[100];
-
-    while(fscanf(fp,"%d\n%s\n%s\n%d\n%s\n%d\n",&books[index].serial_number,books[index].ISBN,books[index].name,&books[index].edition,books[index].author,&books[index].is_reserved)!=EOF)
-    {
-        if(currentserial==books[index].serial_number)
-        {
-            printf("BOOK FOUND!\n");
-            flag=1;
-            break;
-        }
-        index++;
-    }
-
-    //CLOSING THE FILE
-    fclose(fp);
-    
-    //CHECKING IF THE BOOK WITH SERIAL NUMBER EXISTS OR NOT
-    if(flag==0)
-    {
-        printf("BOOK WITH SERIAL NUMBER (%d) DOES NOT EXIST!\n",currentserial);
-        printf("----------------------------------------------------------\n");
-        return;
-    }
-
-    //CHOICE FOR THE USER WHETHER HE WANTS TO ISSUE OR RETURN A BOOK
-    printf("1.ISSUE BOOK\n2.RETURN BOOK\n");
-    printf("ENTER YOUR CHOICE:");
-    scanf("%d",&choice);
-
-    //IF THE USER WANTS TO ISSUE A BOOK
-    //THE RESERVATION STATUS WILL BE SET TO ONE
-    if(choice==1)
-    {
-    if(books[index].is_reserved==0)
-    {
-        books[index].is_reserved=1;
-        printf("BOOK WITH SERIAL NUMBER (%d) HAS BEEN ISSUED!\n",currentserial);
-        printf("----------------------------------------------------------\n");
-    }
-    //IF THE SAME BOOK IS AGAIN ISSUED
-    //THEN PRINTING A MEANINGFULL MESSAGE
-    else
-    {
-        printf("BOOK WITH SERIAL NUMBER (%d) HAS ALREADY BEEN ISSED!\n",currentserial);
-        printf("----------------------------------------------------------\n");
-    }
-    }
-    //IF THE USER WANTS TO RETURN A BOOK
-    //THE RESERVATION STATUS WILL BE SET TO ZERO
-    else if(choice==2)
-    {
-        if(books[index].is_reserved==1)
-        {
-            books[index].is_reserved=0;
-            printf("BOOK WITH SERIAL NUMBER (%d) HAS BEEN RETURNED!\n",currentserial);
-            printf("----------------------------------------------------------\n");
-        }
-        //IF THE BOOK IS NOT ALREADY ISSUED
-        //THEN PRINTING A MEANINGFULL MESSAGE
-        else
-        {
-            printf("BOOK WITH SERIAL NUMBER (%d) IS NOT ISSUED!\n");
-            printf("----------------------------------------------------------\n");
-        }
-    }
-    else
-    {
-        printf("INVALID CHOICE!\n");
-        printf("----------------------------------------------------------\n");
-    }
-
-    //OPENING A TEMPORARY FILE IN WRITE MODE
-    //FOR WRITING THE RECORDS ALONG THE ISSUED OR RETURNED BOOK RECORD
     tempfp=fopen("temporarydatabase.txt","w");
     if(tempfp==NULL)
     {
@@ -636,19 +560,61 @@ void issue_or_return_book()
         exit(1);
     }
 
-    //FOR LOOP USED FOR ITERATING THROUGH THE ARRAY OF BOOKS
-    for(int i=0;i<=index;i++)
+    while(fscanf(fp,"%d\n%s\n%s\n%d\n%s\n%d\n",&tempBook.serial_number,tempBook.ISBN,tempBook.name,&tempBook.edition,tempBook.author,&tempBook.is_reserved)!=EOF)
     {
-        fprintf(tempfp,"%d\n%s\n%s\n%d\n%s\n%d\n",books[i].serial_number,books[i].ISBN,books[i].name,books[i].edition,books[i].author,books[i].is_reserved);
+        if(currentSerial==tempBook.serial_number)
+        {
+            printf("BOOK FOUND!\n");
+            found=1;
+
+            printf("1.ISSUE BOOK\n2.RETURN BOOK\n");
+            printf("ENTER YOUR CHOICE:");
+            scanf("%d",&choice);
+
+            if(choice==1)
+            {
+                if(tempBook.is_reserved==0)
+                {
+                    tempBook.is_reserved=1;
+                    printf("BOOK WITH SERIAL NUMBER (%d) HAS BEEN ISSUED!\n",currentSerial);
+                }
+                else
+                {
+                    printf("BOOK WITH SERIAL NUMBER (%d) HAS ALREADY BEEN ISSUED!\n",currentSerial);
+                }
+            }
+            else if(choice==2)
+            {
+                if(tempBook.is_reserved==1)
+                {
+                    tempBook.is_reserved=0;
+                    printf("BOOK WITH SERIAL NUMBER (%d) HAS BEEN RETURNED!\n",currentSerial);
+                }
+                else
+                {
+                    printf("BOOK WITH SERIAL NUMBER (%d) IS NOT ISSUED!\n",currentSerial);
+                }
+            }
+            else
+            {
+                printf("INVALID CHOICE!\n");
+            }
+        }
+        fprintf(tempfp,"%d\n%s\n%s\n%d\n%s\n%d\n",tempBook.serial_number,tempBook.ISBN,tempBook.name,tempBook.edition,tempBook.author,tempBook.is_reserved);
     }
-    
-    //CLOSING THE FILES
+
     fclose(fp);
     fclose(tempfp);
 
-    //REMOVING AND RENAMING FILES
     remove("librarydatabase.txt");
     rename("temporarydatabase.txt","librarydatabase.txt");
+
+    if(found==0)
+    {
+        printf("BOOK WITH SERIAL NUMBER (%d) DOES NOT EXIST!\n",currentSerial);
+    }
+
+    printf("----------------------------------------------------------\n");
 
 }
 
